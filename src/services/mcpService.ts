@@ -1,10 +1,15 @@
 import { getMongoDBTool } from '../tools/mongodbTool.ts';
+import { getCsvToJSONTool } from '../tools/csvToJSONTool.ts';
 import { MultiServerMCPClient } from '@langchain/mcp-adapters';
+import { getFSTool } from '../tools/fsTool.ts';
+
+let client: MultiServerMCPClient | undefined;
 
 export const getMCPTools = async () => {
-  const client = new MultiServerMCPClient({
+  client ??= new MultiServerMCPClient({
     mcpServers: {
-      ...getMongoDBTool()
+      ...getMongoDBTool(),
+      ...getFSTool()
     },
     onMessage: (log, source) => {
       console.log(`[${source.server}] ${log.data}`);
@@ -14,6 +19,12 @@ export const getMCPTools = async () => {
   const mcpTools = await client.getTools();
 
   return [
-    ...mcpTools
+    ...mcpTools,
+    getCsvToJSONTool()
   ];
+};
+
+export const closeMCPTools = async () => {
+  await client?.close();
+  client = undefined;
 };
