@@ -22,7 +22,12 @@ export const config: ModelConfig = {
   httpReferer: '',
   xTitle: 'IA Devs - Transforming Services into Tools',
   models: [
-    'arcee-ai/trinity-large-preview:free',
+    // 'arcee-ai/trinity-large-preview:free',
+    // 'nvidia/llama-nemotron-rerank-vl-1b-v2:free'
+    // 'inclusionai/ling-3.0-flash:free'
+
+    // 'poolside/laguna-s-2.1:free'
+    'cohere/north-mini-code:free'
   ],
   provider: {
     sort: {
