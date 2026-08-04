@@ -12,6 +12,7 @@ export function agentNode(openRouterService: OpenRouterService) {
       const result = await openRouterService.generateStructured(getSystemPrompt(), userMessage);
 
       return {
+        error: undefined,
         messages: [new AIMessage(result.data as string)],
       };
 
